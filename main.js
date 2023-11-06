@@ -1,3 +1,5 @@
+import { validateInputField, getTaskFields, reset } from './utility'
+
 window.addEventListener('load', () => {
 	tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 	const nameInput = document.querySelector('#name');
@@ -12,14 +14,29 @@ window.addEventListener('load', () => {
 		localStorage.setItem('username', e.target.value);
 	})
 
+    addTaskBtn.addEventListener('click', function(){
+        const isValidated = validateInputField();
+
+        if (!isValidated){
+            return;
+        }
+
+        const fieldValues = getTaskFields();
+        reset();
+
+        task.push(fieldValues);
+        console.log(tasks)
+    })
+
 	newTaskForm.addEventListener('submit', e => {
 		e.preventDefault();
 
 		const task = {
 			content: e.target.elements.content.value,
+            date: e.target.elements.date.value,
 			category: e.target.elements.category.value,
 			done: false,
-			createdAt: new Date().getTime()
+			createdDate: new Date().getDay()
 		}
 
 		tasks.push(task);
@@ -73,11 +90,13 @@ function DisplayTasks () {
 		content.innerHTML = `<input type="text" value="${task.content}" readonly>`;
 		edit.innerHTML = 'Edit';
 		deleteButton.innerHTML = 'Delete';
+        search.innerHTML = 'Search'
 
 		label.appendChild(input);
 		label.appendChild(span);
 		actions.appendChild(edit);
 		actions.appendChild(deleteButton);
+        actions.appendChild(search);
 		taskItem.appendChild(label);
 		taskItem.appendChild(content);
 		taskItem.appendChild(actions);
@@ -89,39 +108,49 @@ function DisplayTasks () {
 		}
 		
 		input.addEventListener('change', (e) => {
-			task.done = e.target.checked;
-			localStorage.setItem('tasks', JSON.stringify(tasks));
+                task.done = e.target.checked;
+                localStorage.setItem('tasks', JSON.stringify(tasks));
 
-			if (task.done) {
-				taskItem.classList.add('done');
-				alert('Task completed');
-			} else {
-				taskItem.classList.remove('done');
-			}
+                if (task.done) {
+                    taskItem.classList.add('done');
+                    alert('Task completed');
+                } else {
+                    taskItem.classList.remove('done');
+                }
 
-			DisplayTasks()
+                DisplayTasks()
 		 
-	 })
+	        })
 
-		edit.addEventListener('click', (e) => {
-			const input = content.querySelector('input');
-			input.removeAttribute('readonly');
-			input.focus();
-			input.addEventListener('blur', (e) => {
-				input.setAttribute('readonly', true);
-				task.content = e.target.value;
-				localStorage.setItem('tasks', JSON.stringify(tasks));
-				DisplayTasks()
+            edit.addEventListener('click', (e) => {
+                const input = content.querySelector('input');
+                input.removeAttribute('readonly');
+                input.focus();
+                input.addEventListener('blur', (e) => {
+                    input.setAttribute('readonly', true);
+                    task.content = e.target.value;
+                    localStorage.setItem('tasks', JSON.stringify(tasks));
+                    DisplayTasks()
 
-			})
-		})
+                })
+            })
 
-		deleteButton.addEventListener('click', (e) => {
-			tasks = tasks.filter(t => t != task);
-			localStorage.setItem('tasks', JSON.stringify(tasks));
-			DisplayTasks()
-		})
+            deleteButton.addEventListener('click', (e) => {
+                tasks = tasks.filter(t => t != task);
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                DisplayTasks()
+            })
+
+            searchButton.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent the form from submitting
+            
+                const searchInput = document.querySelector('#search-task-field');
+                const searchTerm = searchInput.value;
+            
+                filterTasks(searchTerm);
+            });
 	 }
+     
 	})
 }
 function showCompletionMessage() {
