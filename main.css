@@ -35,7 +35,7 @@ input:not([type="radio"]):not([type="checkbox"]), button {
 
 body {
 	background: var(--dark);
-	color: var(--light);
+	/* color: var(--light); */
 }
 
 section {
@@ -194,6 +194,7 @@ input:checked ~ .bubble::after {
 	opacity: 0.75;
 }
 
+
 .task-list .list {
 	margin: 1rem 0;
 }
@@ -267,6 +268,7 @@ input:checked ~ .bubble::after {
 	width: 100%;
 	height: 100%;	
 	z-index: 1;
+	border-radius: 0.5rem;
   }
   
   .modal-content {
@@ -276,6 +278,17 @@ input:checked ~ .bubble::after {
 	border: 1px solid var(--grey);
 	width: 50%;
 	text-align: center;
+	border-radius: 0.5rem;
+  }
+
+  .modal-validation {
+	background-color: var(--danger);
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid var(--grey);
+	width: 50%;
+	text-align: center;
+	border-radius: 0.5rem;
   }
   
   .close {
@@ -296,8 +309,8 @@ input:checked ~ .bubble::after {
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	background-color: var(--light);
-	border: 2px solid var(--primary);
+	background-color: var(--light);	
+	margin-bottom: 20px ;
   }
   .searchBtn input{
 	font-size: large;

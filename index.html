@@ -8,7 +8,7 @@
     <title>Task Manager</title>
     <link rel="stylesheet" href="main.css" />
     <!-- Fonts -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/font-awesome.min.css">
 
     <link rel="#" href="https://fonts.googleapis.com">
     <link rel="#" href="https://fonts.gstatic.com" crossorigin>
@@ -53,22 +53,15 @@
                         </div>
                     </label>
                 </div>
-                
-                <!-- <div class="form-control form-control-check">
-                    <label for="reminder">Set Reminder</label>
-                    <input
-                        type="checkbox"
-                        name="reminder"
-                        id="reminder"
-                    />
-                </div> -->
-
-                <input type="submit" value="Add task" />
+                <input type="submit" value="Add task" />               
+                    <div class="searchBtn">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        <input type="search" id="search" placeholder="Search task" />
+                    </div>
+                    <!-- <input type="submit" value="Search task" /> -->
+               
             </form>
-            <div class="searchBtn">
-                <i class="fa fa-search" aria-hidden="true"></i>
-                <input type="search" placeholder="Search task" />
-            </div>
+           
         </section>
         <section class="task-list">
             <h3>TASKS LIST</h3>
@@ -80,6 +73,11 @@
                 <p>Task completed!</p>
             </div>
         </div>
+        <div class="modal" id="validationModal">
+            <div class="modal-validation">
+                <span class="close" onclick="closeValidationModal()">&times;</span>
+                <p>Please fill in all fields!</p>
+            </div>
     </main>
     <script src="main.js"></script>
 </body>
